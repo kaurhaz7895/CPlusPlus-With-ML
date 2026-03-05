@@ -1,7 +1,0 @@
-# Lab 1: Exploring Memory Layout with .map File and Heap Debugging
-
-## 🎯 Objectives
-- Generate a `.map` file in Visual Studio to visualize memory layout.
-- Identify sections such as `.text`, `.data`, `.bss`.
-- Debug a program to observe stack vs heap addresses.
-- Strengthen understanding of runtime memory organization.
