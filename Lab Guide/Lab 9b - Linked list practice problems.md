@@ -4,8 +4,17 @@
 Today's lesson builds upon the foundational understanding of **linked lists** by focusing on practical implementation exercises in **C++**. The goal is to strengthen implementation skills and expose common patterns that frequently appear in technical interviews.
 
 ---
+# Table of Contents
 
-# Problem 1: Reverse Linked List Traversal
+- [Problem 1 — Reverse Linked List Traversal](#problem-1--reverse-linked-list-traversal)
+- [Problem 2 — Calculate Linked List Length](#problem-2--calculate-linked-list-length)
+- [Additional Interview Problems](#additional-interview-problems)
+  - [Problem 3 — Reverse Linked List In‑Place](#problem-3--reverse-linked-list-inplace)
+  - [Problem 4 — Find the Middle Node](#problem-4--find-the-middle-node)
+  - [Problem 5 — Detect Cycle in Linked List](#problem-5--detect-cycle-in-linked-list)
+- [Key Takeaways](#key-takeaways)
+
+# Problem 1 — Reverse Linked List Traversal
 
 Consider a sequence of events stored in a linked list. Sometimes we need to review those events in reverse chronological order. The challenge here is to **traverse a singly linked list in reverse order without modifying the original structure**.
 
@@ -107,7 +116,7 @@ void ReversePrintLinkedList(ListNode* head) {
 
 ---
 
-# Problem 2: Calculate Linked List Length
+# Problem 2 — Calculate Linked List Length
 
 The next problem is determining the **length of a linked list**.
 
@@ -183,6 +192,144 @@ int GetLength(ListNode* head) {
 
 **Time Complexity:** O(n)  
 **Space Complexity:** O(1)
+
+---
+# Additional Interview Problems
+
+These problems are extremely common in **data structure interviews** and strengthen understanding of pointer manipulation.
+
+---
+
+# Problem 3 — Reverse Linked List In‑Place
+
+## Problem Statement
+
+Reverse the linked list **without using extra memory structures**.
+
+### Idea
+
+Modify pointer directions while traversing the list.
+
+### Algorithm
+
+1. Maintain three pointers  
+   - `prev`  
+   - `current`  
+   - `next`
+2. Reverse the `next` pointer of each node
+3. Move all pointers forward
+
+### C++ Implementation
+
+```cpp
+ListNode* ReverseList(ListNode* head) {
+
+    ListNode* prev = nullptr;
+    ListNode* current = head;
+
+    while (current != nullptr) {
+
+        ListNode* next = current->next;
+
+        current->next = prev;
+
+        prev = current;
+        current = next;
+    }
+
+    return prev;
+}
+```
+
+**Time Complexity:** O(n)  
+**Space Complexity:** O(1)
+
+---
+
+# Problem 4 — Find the Middle Node
+
+## Problem Statement
+
+Return the **middle node** of a linked list.
+
+### Approach — Fast and Slow Pointer
+
+Use two pointers:
+
+- **slow pointer** moves one step
+- **fast pointer** moves two steps
+
+When fast reaches the end, slow reaches the middle.
+
+### C++ Implementation
+
+```cpp
+ListNode* FindMiddle(ListNode* head) {
+
+    ListNode* slow = head;
+    ListNode* fast = head;
+
+    while (fast != nullptr && fast->next != nullptr) {
+
+        slow = slow->next;
+        fast = fast->next->next;
+    }
+
+    return slow;
+}
+```
+
+**Time Complexity:** O(n)  
+**Space Complexity:** O(1)
+
+---
+
+# Problem 5 — Detect Cycle in Linked List
+
+## Problem Statement
+
+Determine whether a linked list contains a **cycle**.
+
+### Approach — Floyd’s Cycle Detection Algorithm
+
+Also known as the **Tortoise and Hare Algorithm**.
+
+Two pointers move at different speeds.
+
+If they meet, a cycle exists.
+
+### C++ Implementation
+
+```cpp
+bool HasCycle(ListNode* head) {
+
+    ListNode* slow = head;
+    ListNode* fast = head;
+
+    while (fast != nullptr && fast->next != nullptr) {
+
+        slow = slow->next;
+        fast = fast->next->next;
+
+        if (slow == fast)
+            return true;
+    }
+
+    return false;
+}
+```
+
+**Time Complexity:** O(n)  
+**Space Complexity:** O(1)
+
+---
+
+# Key Takeaways
+
+- Linked lists rely on **pointer traversal**
+- Stack structures help with **reverse operations**
+- Efficient algorithms minimize **extra memory usage**
+- Fast‑slow pointer techniques are common in **interview problems**
 
 ---
 
