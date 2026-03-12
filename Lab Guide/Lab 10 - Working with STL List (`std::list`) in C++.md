@@ -2,21 +2,22 @@
 # Lab 10 — STL List (`std::list`) in C++
 
 ## Table of Contents
-[1. Introduction](#1-introduction)
-[2. Learning Objectives](#2-learning-objectives)
-[3. Definition of std::list](#3-definition-of-stdlist)
-[4. Internal Structure](#4-internal-structure)
-[5. Manual Linked List Implementation](#5-manual-linked-list-implementation)
-[6. STL List Implementation](#6-stl-list-implementation)
-[7. Comparison: STL List vs Manual Linked List](#7-comparison-stl-list-vs-manual-linked-list)
-[8. Advantages](#8-advantages)
-[9. Drawbacks](#9-drawbacks)
-[10. Real World Use Cases](#10-real-world-use-cases)
-[11. Demonstration Program](#11-demonstration-program)
-[12. Program Output](#12-program-output)
-[13. Step-by-Step Explanation](#13-step-by-step-explanation)
-[14. Complexity Analysis](#14-complexity-analysis)
-[15. Conclusion](#15-conclusion)
+
+- [1. Introduction](#1-introduction)
+- [2. Learning Objectives](#2-learning-objectives)
+- [3. Definition of std::list](#3-definition-of-stdlist)
+- [4. Internal Structure](#4-internal-structure)
+- [5. Manual Linked List Implementation](#5-manual-linked-list-implementation)
+- [6. STL List Implementation](#6-stl-list-implementation)
+- [7. Comparison: STL List vs Manual Linked List](#7-comparison-stl-list-vs-manual-linked-list)
+- [8. Advantages](#8-advantages)
+- [9. Drawbacks](#9-drawbacks)
+- [10. Real World Use Cases](#10-real-world-use-cases)
+- [11. Demonstration Program](#11-demonstration-program)
+- [12. Program Output](#12-program-output)
+- [13. Step-by-Step Explanation](#13-step-by-step-explanation)
+- [14. Complexity Analysis](#14-complexity-analysis)
+- [15. Conclusion](#15-conclusion)
 
 ---
 
