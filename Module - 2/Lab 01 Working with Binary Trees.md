@@ -77,13 +77,13 @@ Explanation:
 
 # Terminology
 
-  Term      Meaning
-  --------- ---------------------------------------------
-  Root      Topmost node
-  Parent    Node that has children
-  Child     Node below another node
-  Leaf      Node with no children
-  Subtree   Tree formed from a node and its descendants
+| Term | Meaning |
+|------|---------|
+| Root | Topmost node |
+| Parent | Node that has children |
+| Child | Node below another node |
+| Leaf | Node with no children |
+| Subtree | Tree formed from a node and its descendants |
 
 ------------------------------------------------------------------------
 
@@ -150,6 +150,7 @@ struct Node
 
 int main()
 {
+    // Insert nodes into the binary tree
     Node* root = new Node(10);
     root->left = new Node(20);
     root->right = new Node(30);
@@ -198,6 +199,7 @@ This implementation includes:
 ## Code
 
 ``` cpp
+
 #include <iostream>
 using namespace std;
 
@@ -215,54 +217,65 @@ struct Node
     }
 };
 
+//Implement binary tree class with basic operations like insert, search, and traversal (in-order, pre-order, post-order).
 class BinaryTree
 {
 private:
     Node* root;
-
+    
+    // Helper functions 
     Node* insertNode(Node* node, int value) {
-
-        if (node == nullptr)
+        // If the tree is empty, create a new node and return it
+        if (node == nullptr) {
             return new Node(value);
+        }
 
-        if (value < node->data)
+        /* Otherwise, recur down the tree
+           If the value to be inserted is smaller than the node's data,
+           insert it into the left subtree
+           else, insert it into the right subtree
+        */
+
+        if (value < node->data) {
             node->left = insertNode(node->left, value);
-        else
+        }
+        else {
             node->right = insertNode(node->right, value);
-
+        }
         return node;
     }
-
+	//Traversal functions for the binary tree. These functions will visit each node in a specific order and print its value.
+    // Inorder Traversal (Left → Root → Right)
     void inorder(Node* node) {
-        if (node == nullptr) return;
-
+		if (node == nullptr) return; // Base case: if the node is null, return
         inorder(node->left);
         cout << node->data << " ";
         inorder(node->right);
     }
 
+    // Preorder Traversal (Root → Left → Right)
     void preorder(Node* node) {
         if (node == nullptr) return;
-
         cout << node->data << " ";
         preorder(node->left);
         preorder(node->right);
     }
 
+    // Postorder Traversal (Left → Right → Root)
     void postorder(Node* node) {
         if (node == nullptr) return;
-
         postorder(node->left);
         postorder(node->right);
         cout << node->data << " ";
     }
 
 public:
-
+    // Constructor
     BinaryTree() {
         root = nullptr;
     }
 
+    // This function inserts a new node with the given value into the binary tree.
     void insert(int value) {
         root = insertNode(root, value);
     }
@@ -281,12 +294,15 @@ public:
         postorder(root);
         cout << endl;
     }
+
+
 };
 
 int main()
 {
     BinaryTree tree;
 
+    // Insert nodes using the insert method
     tree.insert(10);
     tree.insert(20);
     tree.insert(30);
@@ -304,6 +320,7 @@ int main()
 
     return 0;
 }
+
 ```
 
 ------------------------------------------------------------------------
