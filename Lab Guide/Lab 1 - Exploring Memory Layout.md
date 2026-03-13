@@ -1,4 +1,4 @@
-# Lab 1: Exploring Memory Layout with `.map` File and Heap Debugging
+# Lab 01: Exploring Memory Layout with `.map` File and Heap Debugging
 
 ## 🎯 Objectives
 
