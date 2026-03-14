@@ -210,79 +210,99 @@ class BST
 {
 private:
 
-    Node* root;
+    Node* root;   // Pointer to the root node of the BST
 
+    // Recursive helper function to insert a new value in the BST
     Node* insertNode(Node* node, int value)
     {
+        // If we reach a null position, create a new node
         if(node == nullptr)
             return new Node(value);
 
+        // Follow BST property: smaller values go to the left subtree
         if(value < node->data)
             node->left = insertNode(node->left, value);
+
+        // Larger values go to the right subtree
         else
             node->right = insertNode(node->right, value);
 
+        // Return the unchanged node pointer
         return node;
     }
 
+    // Recursive helper function to search for a key
     bool searchNode(Node* node, int key)
     {
+        // If node is null, value does not exist in the tree
         if(node == nullptr)
             return false;
 
+        // If value matches the current node, search successful
         if(node->data == key)
             return true;
 
+        // Continue searching in the appropriate subtree
         if(key < node->data)
             return searchNode(node->left, key);
         else
             return searchNode(node->right, key);
     }
 
+    // Inorder traversal: Left → Root → Right
+    // Produces sorted output in a BST
     void inorder(Node* node)
     {
         if(node == nullptr) return;
 
-        inorder(node->left);
-        cout << node->data << " ";
-        inorder(node->right);
+        inorder(node->left);        // Visit left subtree
+        cout << node->data << " ";  // Process current node
+        inorder(node->right);       // Visit right subtree
     }
 
+    // Preorder traversal: Root → Left → Right
+    // Useful for copying or serializing tree structure
     void preorder(Node* node)
     {
         if(node == nullptr) return;
 
-        cout << node->data << " ";
-        preorder(node->left);
-        preorder(node->right);
+        cout << node->data << " ";  // Process current node
+        preorder(node->left);       // Traverse left subtree
+        preorder(node->right);      // Traverse right subtree
     }
 
+    // Postorder traversal: Left → Right → Root
+    // Useful for deleting tree structures safely
     void postorder(Node* node)
     {
         if(node == nullptr) return;
 
-        postorder(node->left);
-        postorder(node->right);
-        cout << node->data << " ";
+        postorder(node->left);      // Traverse left subtree
+        postorder(node->right);     // Traverse right subtree
+        cout << node->data << " ";  // Process current node
     }
 
 public:
 
+    // Constructor initializes an empty tree
     BST()
     {
         root = nullptr;
     }
 
+    // Public insert function (calls recursive helper)
     void insert(int value)
     {
         root = insertNode(root, value);
     }
 
+    // Public search function
     bool search(int key)
     {
         return searchNode(root, key);
     }
 
+    // Public traversal wrappers
     void inorderTraversal()
     {
         inorder(root);
@@ -301,20 +321,23 @@ public:
         cout << endl;
     }
 
+    // Level-order traversal (Breadth-First Search)
+    // Uses a queue to visit nodes level by level
     void levelOrderTraversal()
     {
         if(root == nullptr) return;
 
-        queue<Node*> q;
-        q.push(root);
+        queue<Node*> q;   // Queue stores nodes to visit
+        q.push(root);     // Start with root node
 
         while(!q.empty())
         {
-            Node* temp = q.front();
+            Node* temp = q.front(); // Get next node
             q.pop();
 
-            cout << temp->data << " ";
+            cout << temp->data << " "; // Process node
 
+            // Add children to queue for future processing
             if(temp->left)
                 q.push(temp->left);
 
@@ -330,6 +353,7 @@ int main()
 {
     BST tree;
 
+    // Insert elements into BST
     tree.insert(50);
     tree.insert(30);
     tree.insert(70);
@@ -338,6 +362,7 @@ int main()
     tree.insert(60);
     tree.insert(80);
 
+    // Demonstrate different traversals
     cout << "Inorder Traversal: ";
     tree.inorderTraversal();
 
@@ -350,6 +375,7 @@ int main()
     cout << "Level Order Traversal: ";
     tree.levelOrderTraversal();
 
+    // Search for a value in the BST
     cout << "\nSearching 40: ";
     if(tree.search(40))
         cout << "Found\n";
@@ -410,6 +436,63 @@ Level Order:\
 
 # 11. Challenge Problems
 
+## Problem with Solution
+Given a binary search tree and a "target" value, search the tree to see if it contains the target. The basic pattern of the **lookup()** code occurs in many recursive tree algorithms: deal with the base case where the tree is empty, deal with the current node, and then use recursion to deal with the subtrees. If the tree is a binary search tree, there is often some sort of less-than test on the node to decide if the recursion should go left or right.
+
+``` cpp
+#include <iostream>
+using namespace std;
+
+struct Node {
+    int data;
+    Node* left;
+    Node* right;
+    
+    Node(int val) : data(val), left(nullptr), right(nullptr) {}
+};
+
+// Recursive lookup function
+bool lookup(Node* root, int target) {
+    if (root == nullptr) {
+        return false;  // Base case: empty tree
+    }
+    if (root->data == target) {
+        return true;   // Found the target
+    }
+    else if (target < root->data) {
+        return lookup(root->left, target);  // Search left subtree
+    }
+    else {
+        return lookup(root->right, target); // Search right subtree
+    }
+}
+
+// Helper to insert nodes into BST
+Node* insert(Node* root, int val) {
+    if (root == nullptr) return new Node(val);
+    if (val < root->data) root->left = insert(root->left, val);
+    else root->right = insert(root->right, val);
+    return root;
+}
+
+int main() {
+    Node* root = nullptr;
+    root = insert(root, 50);
+    insert(root, 30);
+    insert(root, 70);
+    insert(root, 20);
+    insert(root, 40);
+    insert(root, 60);
+    insert(root, 80);
+
+    cout << (lookup(root, 40) ? "Found" : "Not Found") << endl;
+    cout << (lookup(root, 25) ? "Found" : "Not Found") << endl;
+
+    return 0;
+}
+
+```
+## Problems without Solution
 1.  Write a function to find the **kth smallest element** in a BST.
 2.  Write a function to **validate if a binary tree is a BST**.
 3.  Implement **level-by-level printing of the tree**.
