@@ -1,4 +1,4 @@
-# Red-Black Tree Lab (C++)
+# Lab 04 - Working with Red-Back Trees in C++
 
 ## Table of Contents
 
@@ -8,13 +8,16 @@
 -   [4. Why Red-Black Trees are
     Needed](#4-why-red-black-trees-are-needed)
 -   [5. Height Guarantee](#5-height-guarantee)
--   [6. Insertion Cases](#6-insertion-cases)
+-   [6. Insertion Fix Strategy](#6-insertion-fix-strategy)
 -   [7. Rotation Concepts](#7-rotation-concepts)
--   [8. Red-Black Tree Implementation in
-    C++](#8-red-black-tree-implementation-in-c)
--   [9. Example Execution](#9-example-execution)
--   [10. Visual Representation](#10-visual-representation)
--   [11. Complexity Analysis](#11-complexity-analysis)
+-   [8. Insertion Case Decision Chart](#8-insertion-case-decision-chart)
+-   [9. Red-Black Tree Implementation in
+    C++](#9-red-black-tree-implementation-in-c)
+-   [10. Example Execution](#10-example-execution)
+-   [11. Visual Representation with
+    Mermaid](#11-visual-representation-with-mermaid)
+-   [12. AVL vs Red-Black Comparison](#12-avl-vs-red-black-comparison)
+-   [13. Complexity Analysis](#13-complexity-analysis)
 
 ------------------------------------------------------------------------
 
@@ -22,64 +25,75 @@
 
 A **Red-Black Tree** is a self-balancing Binary Search Tree.
 
-It maintains balance by enforcing **color rules on nodes**.
+Each node contains an additional property:
 
-Each node is either:
+    color = RED or BLACK
 
--   Red
--   Black
+Balancing is maintained using:
 
-These rules ensure the tree height remains **logarithmic**, guaranteeing
-efficient operations.
+-   recoloring
+-   rotations
+
+This guarantees that the tree height remains logarithmic.
 
 ------------------------------------------------------------------------
 
 # 2. Definition of Red-Black Tree
 
-A **Red-Black Tree** is a Binary Search Tree where each node contains an
-extra attribute: **color**.
+A Red-Black Tree is a Binary Search Tree where each node follows
+specific **color rules** that enforce balanced height.
 
-The tree uses coloring and rotations to maintain balance after insertion
-and deletion.
+The extra color information helps detect violations and repair the tree
+after insertion or deletion.
 
 ------------------------------------------------------------------------
 
 # 3. Properties of Red-Black Trees
 
-A valid Red-Black Tree satisfies these five properties:
+A valid Red-Black Tree must satisfy the following rules.
 
 1.  Every node is either **Red or Black**
 2.  The **root is always Black**
 3.  All **NULL leaves are Black**
 4.  A **Red node cannot have a Red child**
-5.  Every path from a node to its descendant NULL nodes contains the
+5.  Every path from a node to descendant NULL nodes must contain the
     **same number of Black nodes**
 
-Property 4 prevents long chains of red nodes.
-
-Property 5 guarantees balanced height.
+These rules guarantee that the tree height remains balanced.
 
 ------------------------------------------------------------------------
 
 # 4. Why Red-Black Trees are Needed
 
-Normal BST can become skewed:
+A normal BST can become skewed.
 
-    10
-      \
-      20
-        \
-        30
-          \
-          40
+Example:
 
-Search becomes:
+    Insert: 10 20 30 40
+
+Skewed BST:
+
+``` mermaid
+graph TD
+10 --> 20
+20 --> 30
+30 --> 40
+```
+
+Search complexity becomes:
 
     O(n)
 
-Red-Black Trees maintain approximate balance so height remains small.
+Balanced Red-Black Tree:
 
-Operations stay:
+``` mermaid
+graph TD
+20 --> 10
+20 --> 30
+30 --> 40
+```
+
+Search complexity remains:
 
     O(log n)
 
@@ -89,72 +103,93 @@ Operations stay:
 
 For a Red-Black Tree with **n nodes**:
 
-    height <= 2 log(n+1)
+    height ≤ 2 log(n+1)
 
-This ensures efficient search, insertion, and deletion.
+This ensures efficient operations.
 
 ------------------------------------------------------------------------
 
-# 6. Insertion Cases
+# 6. Insertion Fix Strategy
 
-When inserting into a Red-Black Tree:
+When inserting a node:
 
-1.  Insert node like a normal BST.
-2.  Color the new node **Red**.
-3.  Fix violations of Red-Black properties.
+Step 1 --- Insert node like a **BST**\
+Step 2 --- Color the new node **RED**\
+Step 3 --- Fix violations using:
 
-Common cases:
-
-  Case     Situation        Fix
-  -------- ---------------- ------------------
-  Case 1   Uncle is Red     Recolor
-  Case 2   Triangle shape   Rotate + recolor
-  Case 3   Line shape       Rotate + recolor
+-   recoloring
+-   rotations
 
 ------------------------------------------------------------------------
 
 # 7. Rotation Concepts
 
-Rotations restructure the tree while preserving BST order.
+Rotations restructure the tree without breaking BST ordering.
 
-### Left Rotation
+## Left Rotation
 
-          x                y
-           \              / \
-            y    →       x   T3
-           / \            \
-         T2  T3           T2
+``` mermaid
+graph TD
+X --> Y
+Y --> T3
+Y --> T2
+```
 
-### Right Rotation
+After rotation
 
-            y              x
-           /              / \
-          x      →       T1  y
-         / \                /
-       T1  T2              T2
+``` mermaid
+graph TD
+Y --> X
+Y --> T3
+X --> T2
+```
 
-Rotations are also used in **AVL trees**, but Red-Black Trees combine
-them with recoloring.
+## Right Rotation
+
+``` mermaid
+graph TD
+Y --> X
+X --> T1
+X --> T2
+```
+
+After rotation
+
+``` mermaid
+graph TD
+X --> T1
+X --> Y
+Y --> T2
+```
 
 ------------------------------------------------------------------------
 
-# 8. Red-Black Tree Implementation in C++
+# 8. Insertion Case Decision Chart
+
+When inserting a node, examine:
+
+-   Parent color
+-   Uncle color
+-   Tree shape
+
+  Condition                             Case     Action
+  ------------------------------------- -------- ------------------
+  Parent is Black                       Valid    No action
+  Parent Red + Uncle Red                Case 1   Recolor
+  Parent Red + Uncle Black + Triangle   Case 2   Rotate once
+  Parent Red + Uncle Black + Line       Case 3   Rotate + recolor
+
+This chart helps students quickly determine which correction to apply.
+
+------------------------------------------------------------------------
+
+# 9. Red-Black Tree Implementation in C++
 
 ``` cpp
 #include <iostream>
 using namespace std;
 
 enum Color {RED, BLACK};
-
-/*
-Node structure for Red-Black Tree
-Each node stores:
-1. key value
-2. color (RED or BLACK)
-3. left child
-4. right child
-5. parent pointer
-*/
 
 class Node{
 public:
@@ -166,15 +201,17 @@ public:
 class RBTree{
 
 private:
+
     Node *root;
     Node *TNULL;
 
     /*
-    Initialize NULL node
-    All leaves point to TNULL
+    Initialize the sentinel NULL node.
+    This node represents leaf nodes.
     */
 
     void initializeNULLNode(Node *node, Node *parent){
+
         node->data = 0;
         node->parent = parent;
         node->left = nullptr;
@@ -184,6 +221,12 @@ private:
 
     /*
     Left Rotation
+
+        x                 y
+         \               / \
+          y    →        x   T3
+         / \             \
+       T2  T3            T2
     */
 
     void leftRotate(Node *x){
@@ -239,7 +282,7 @@ private:
     }
 
     /*
-    Fix Red-Black Tree after insertion
+    Fix Red-Black violations after insertion
     */
 
     void fixInsert(Node *k){
@@ -315,18 +358,16 @@ public:
         TNULL->color = BLACK;
         TNULL->left = nullptr;
         TNULL->right = nullptr;
-
         root = TNULL;
     }
 
     /*
-    Insert node
+    Insert operation
     */
 
     void insert(int key){
 
         Node *node = new Node;
-
         node->parent = nullptr;
         node->data = key;
         node->left = TNULL;
@@ -334,7 +375,7 @@ public:
         node->color = RED;
 
         Node *y = nullptr;
-        Node *x = this->root;
+        Node *x = root;
 
         while(x != TNULL){
 
@@ -342,7 +383,6 @@ public:
 
             if(node->data < x->data)
                 x = x->left;
-
             else
                 x = x->right;
         }
@@ -354,7 +394,6 @@ public:
 
         else if(node->data < y->data)
             y->left = node;
-
         else
             y->right = node;
 
@@ -370,10 +409,6 @@ public:
         fixInsert(node);
     }
 
-    /*
-    Preorder traversal
-    */
-
     void preorder(Node *node){
 
         if(node != TNULL){
@@ -385,7 +420,8 @@ public:
     }
 
     void printTree(){
-        preorder(this->root);
+
+        preorder(root);
     }
 };
 
@@ -407,35 +443,44 @@ int main(){
 
 ------------------------------------------------------------------------
 
-# 9. Example Execution
+# 10. Example Execution
 
 Inserted values:
 
     10 20 30 15 25
 
-Program Output:
+Program output:
 
     Preorder traversal of Red-Black Tree:
     20 10 15 30 25
 
 ------------------------------------------------------------------------
 
-# 10. Visual Representation
+# 11. Visual Representation with Mermaid
 
-Example balanced tree:
-
-            20(B)
-           /    \
-       10(R)    30(B)
-          \      /
-         15(B) 25(R)
-
-B = Black node\
-R = Red node
+``` mermaid
+graph TD
+20 --> 10
+20 --> 30
+10 --> 15
+30 --> 25
+```
 
 ------------------------------------------------------------------------
 
-# 11. Complexity Analysis
+# 12. AVL vs Red-Black Comparison
+
+  Feature         AVL Tree          Red-Black Tree
+  --------------- ----------------- ------------------
+  Balance         Strict            Approximate
+  Rotations       More frequent     Less frequent
+  Search speed    Slightly faster   Slightly slower
+  Insert/Delete   Slower            Faster
+  Used in         Databases         OS kernels, maps
+
+------------------------------------------------------------------------
+
+# 13. Complexity Analysis
 
   Operation   Time Complexity
   ----------- -----------------
@@ -443,5 +488,5 @@ R = Red node
   Insert      O(log n)
   Delete      O(log n)
 
-Red-Black Trees maintain **near-perfect balance**, ensuring logarithmic
-performance.
+Red-Black Trees maintain **logarithmic height**, ensuring efficient
+operations.
