@@ -264,14 +264,13 @@ LeftRotate(15)
 
 # 9. Rotation Summary
 
-  Case   Pattern         Rotation
-  ------ --------------- ----------------------------
-  LL     Left → Left     Right Rotate
-  RR     Right → Right   Left Rotate
-  LR     Left → Right    Left Rotate + Right Rotate
-  RL     Right → Left    Right Rotate + Left Rotate
+| Case | Pattern        | Rotation                     |
+|------|----------------|------------------------------|
+| LL   | Left → Left    | Right Rotate                 |
+| RR   | Right → Right  | Left Rotate                  |
+| LR   | Left → Right   | Left Rotate + Right Rotate   |
+| RL   | Right → Left   | Right Rotate + Left Rotate   |
 
-------------------------------------------------------------------------
 
 # Key Insight
 
