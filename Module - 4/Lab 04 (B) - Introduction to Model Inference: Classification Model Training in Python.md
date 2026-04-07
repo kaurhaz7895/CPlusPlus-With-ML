@@ -8,16 +8,16 @@
 
 By completing this lab, you will:
 
-✅ Load real medical datasets
-✅ Create binary classification labels from continuous data
-✅ Prepare and split data for training
-✅ Normalize features using StandardScaler
-✅ Build a Neural Network classifier with TensorFlow/Keras
-✅ Train the model with validation
-✅ Evaluate model performance with multiple metrics
-✅ Export the model for deployment
-✅ Make predictions on new data
-✅ Understand the complete deep learning pipeline
+✅ Load real medical datasets  
+✅ Create binary classification labels from continuous data   
+✅ Prepare and split data for training  
+✅ Normalize features using StandardScaler  
+✅ Build a Neural Network classifier with TensorFlow/Keras  
+✅ Train the model with validation  
+✅ Evaluate model performance with multiple metrics  
+✅ Export the model for deployment  
+✅ Make predictions on new data  
+✅ Understand the complete deep learning pipeline  
 
 ---
 
