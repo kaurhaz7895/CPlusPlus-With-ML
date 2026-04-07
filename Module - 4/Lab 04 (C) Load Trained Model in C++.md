@@ -8,13 +8,13 @@
 
 By completing this lab, you will:
 
-✅ Understand Python → C++ model deployment workflow
-✅ Load SavedModel format in C++
-✅ Implement feature normalization in C++
-✅ Run inference on trained neural networks
-✅ Handle errors professionally
-✅ Deploy machine learning models in production C++
-✅ Bridge Python ML training with C++ inference
+✅ Understand Python → C++ model deployment workflow  
+✅ Load SavedModel format in C++  
+✅ Implement feature normalization in C++  
+✅ Run inference on trained neural networks  
+✅ Handle errors professionally  
+✅ Deploy machine learning models in production C++  
+✅ Bridge Python ML training with C++ inference  
 
 ---
 
@@ -170,17 +170,17 @@ tensorflow/c/c_api.h:  TensorFlow C API
 ```
 Comparison:
 C API (This approach):
-✅ Single header
-✅ Lightweight
-✅ Stable
-✅ Production standard
-✅ Easier to compile
+✅ Single header  
+✅ Lightweight  
+✅ Stable  
+✅ Production standard  
+✅ Easier to compile  
 
 C++ API:
-❌ Multiple headers
-❌ Heavy dependencies
-❌ Complex compilation
-❌ Overkill for inference
+❌ Multiple headers  
+❌ Heavy dependencies  
+❌ Complex compilation  
+❌ Overkill for inference  
 ```
 
 ---
@@ -1301,35 +1301,35 @@ cout << "Probability: " << prob << endl;
 This lab demonstrates:
 
 ✅ **Complete ML Pipeline**
-- Python training → Model export
-- C++ loading → Feature normalization → Inference
+- Python training → Model export  
+- C++ loading → Feature normalization → Inference  
 
 ✅ **TensorFlow C API**
-- Load SavedModel
-- Run inference
-- Handle errors
+- Load SavedModel  
+- Run inference  
+- Handle errors  
 
 ✅ **Production Code**
-- Professional error handling
-- Resource management
-- Clean structure
+- Professional error handling  
+- Resource management  
+- Clean structure  
 
 ✅ **Best Practices**
-- Match Python preprocessing exactly
-- Use training means/stds for normalization
-- Proper memory cleanup
-- Clear documentation
+- Match Python preprocessing exactly  
+- Use training means/stds for normalization  
+- Proper memory cleanup  
+- Clear documentation  
 
 ---
 
 ## 🎉 CONCLUSION
 
 You now know how to:
-1. ✅ Train models in Python
-2. ✅ Export as SavedModel
-3. ✅ Load in C++
-4. ✅ Run inference
-5. ✅ Deploy to production
+1. ✅ Train models in Python  
+2. ✅ Export as SavedModel  
+3. ✅ Load in C++  
+4. ✅ Run inference  
+5. ✅ Deploy to production  
 
 **This is real-world ML deployment!** 🚀
 
