@@ -1049,12 +1049,12 @@ See the provided Python code file for the complete, ready-to-run implementation.
 
 This lab taught you to:
 
-✅ Build neural networks with TensorFlow/Keras
-✅ Handle medical classification problems
-✅ Normalize features properly
-✅ Train and evaluate deep learning models
-✅ Export models for deployment
-✅ Interpret neural network predictions
-✅ Compare with traditional ML methods (Random Forest)
+✅ Build neural networks with TensorFlow/Keras  
+✅ Handle medical classification problems  
+✅ Normalize features properly  
+✅ Train and evaluate deep learning models  
+✅ Export models for deployment  
+✅ Interpret neural network predictions  
+✅ Compare with traditional ML methods (Random Forest)  
 
 **You're now ready to integrate deep learning models with C++!** 🚀
