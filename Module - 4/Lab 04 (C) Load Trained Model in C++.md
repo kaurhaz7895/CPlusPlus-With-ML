@@ -481,12 +481,12 @@ public:
         // Use: saved_model_cli show --dir SavedModels/DiabetesNN --all
         
         TF_Output input_op = {
-            TF_GraphOperationByName(graph, "serving_default_input"), 0
-        };
+             TF_GraphOperationByName(graph, "serving_default_keras_tensor"), 0
+         };
 
-        TF_Output output_op = {
-            TF_GraphOperationByName(graph, "StatefulPartitionedCall"), 0
-        };
+         TF_Output output_op = {
+             TF_GraphOperationByName(graph, "StatefulPartitionedCall_1"), 0
+         };
 
         // ===== PART 3: RUN INFERENCE =====
         
@@ -947,11 +947,11 @@ public:
 
         // Get operations
         TF_Output input_op = {
-            TF_GraphOperationByName(graph, "serving_default_input"), 0
+            TF_GraphOperationByName(graph, "serving_default_keras_tensor"), 0
         };
 
         TF_Output output_op = {
-            TF_GraphOperationByName(graph, "StatefulPartitionedCall"), 0
+            TF_GraphOperationByName(graph, "StatefulPartitionedCall_1"), 0
         };
 
         TF_Tensor* output_tensor = nullptr;
