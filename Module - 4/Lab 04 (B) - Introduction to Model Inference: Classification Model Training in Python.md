@@ -1133,11 +1133,9 @@ except Exception as e:
     model.save(fallback)
     print(f"✓ Model saved in Keras format: {fallback} (fallback due to: {e})")
 
----
+```
 
 **LAB COMPLETE! You've successfully trained a neural network for diabetes classification!** 🎉
-
----
 
 ## 🎓 SUMMARY
 
