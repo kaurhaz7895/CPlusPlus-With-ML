@@ -1038,6 +1038,100 @@ model.fit(..., callbacks=[early_stop])
 See the provided Python code file for the complete, ready-to-run implementation.
 
 **The script includes all 12 steps in a single, well-organized file.**
+### Complete Code
+```python
+import pandas as pd
+import numpy as np
+import tensorflow as tf
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+
+print("="*70)
+print("DIABETES CLASSIFICATION - Neural Network Classifier (TensorFlow/Keras)")
+print("="*70)
+
+# ============================================================
+# STEP 1: LOAD DATASET
+# ============================================================
+
+data_path = r"C:\Users\jasle\OneDrive - Koenig Solutions Ltd\Courses\C++ with ML\Downloads\diabetes.txt"
+df = pd.read_csv(data_path, sep=r"\s+")
+
+# ============================================================
+# STEP 2: CREATE BINARY LABEL
+# ============================================================
+
+median_y = df['Y'].median()
+df['label'] = (df['Y'] > median_y).astype(int)
+
+X = df.drop(['Y', 'label'], axis=1)
+y = df['label']
+
+# ============================================================
+# STEP 3: SPLIT & SCALE
+# ============================================================
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42, stratify=y
+)
+
+scaler = StandardScaler()
+X_train_scaled = scaler.fit_transform(X_train)
+X_test_scaled = scaler.transform(X_test)
+
+# ============================================================
+# STEP 4: BUILD NEURAL NETWORK
+# ============================================================
+
+model = tf.keras.Sequential([
+    tf.keras.layers.Input(shape=(X_train_scaled.shape[1],)),
+    tf.keras.layers.Dense(32, activation='relu'),
+    tf.keras.layers.Dense(16, activation='relu'),
+    tf.keras.layers.Dense(1, activation='sigmoid')  # binary classification
+])
+
+model.compile(optimizer='adam',
+              loss='binary_crossentropy',
+              metrics=['accuracy'])
+
+print(model.summary())
+
+# ============================================================
+# STEP 5: TRAIN
+# ============================================================
+
+history = model.fit(X_train_scaled, y_train,
+                    validation_data=(X_test_scaled, y_test),
+                    epochs=20,
+                    batch_size=32)
+
+# ============================================================
+# STEP 6: EVALUATE
+# ============================================================
+
+loss, acc = model.evaluate(X_test_scaled, y_test)
+print(f"Test Accuracy: {acc:.4f}")
+
+# ============================================================
+# STEP 7: EXPORT MODEL
+# ============================================================
+
+save_dir = r"C:\Users\jasle\OneDrive - Koenig Solutions Ltd\Courses\C++ with ML\Downloads\SavedModels\DiabetesNN"
+# Newer Keras may require explicit export for SavedModel. Attempt export() first,
+# fall back to saving in TensorFlow SavedModel format, and finally to the
+# Keras native format (.keras) if needed.
+try:
+    if hasattr(model, "export"):
+        model.export(save_dir)
+    else:
+        # save_format='tf' requests the SavedModel directory format
+        model.save(save_dir, save_format='tf')
+    print(f"✓ SavedModel exported to: {save_dir}")
+except Exception as e:
+    # Final fallback: save as Keras native file
+    fallback = save_dir + ".keras"
+    model.save(fallback)
+    print(f"✓ Model saved in Keras format: {fallback} (fallback due to: {e})")
 
 ---
 
