@@ -1040,6 +1040,7 @@ See the provided Python code file for the complete, ready-to-run implementation.
 **The script includes all 12 steps in a single, well-organized file.**
 ### Complete Code
 ```python
+import os
 import pandas as pd
 import numpy as np
 import tensorflow as tf
@@ -1133,6 +1134,24 @@ except Exception as e:
     model.save(fallback)
     print(f"✓ Model saved in Keras format: {fallback} (fallback due to: {e})")
 
+# ============================================================
+# STEP 8: SAVE NORMALIZATION PARAMETERS
+# ============================================================
+
+os.makedirs(save_dir, exist_ok=True)
+
+# Save means
+np.savetxt(os.path.join(save_dir, "feature_means.txt"), scaler.mean_)
+
+# Save stds
+np.savetxt(os.path.join(save_dir, "feature_stds.txt"), scaler.scale_)
+
+# Save feature names
+with open(os.path.join(save_dir, "feature_names.txt"), "w") as f:
+    for col in X.columns:
+        f.write(col + "\n")
+
+print("✓ Saved normalization files")
 ```
 
 **LAB COMPLETE! You've successfully trained a neural network for diabetes classification!** 🎉
